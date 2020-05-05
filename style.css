@@ -1,0 +1,46 @@
+/* * {
+  border: pink solid 1px;
+} */
+
+body {
+  background-color: #121212;
+  color: #EAF2EF;
+}
+
+main {
+  height: 90vh;
+  border-top: #CFBB6D solid 1px;
+}
+
+.main-row {
+  height: 100%;
+}
+
+/* Search Column */
+.search-column {
+  border-right: #333333 solid 1px;
+}
+
+/* Search */
+
+#search {
+  background-color: #1e1e1e; 
+  border: #333333 solid 1px;
+  color: #EAF2EF;
+}
+
+/* Search Results */
+.past {
+  background-color: #1e1e1e; 
+  border: #333333 solid 1px;
+}
+
+
+/* Weather Column */
+
+/* Todays Weather */
+
+.card {
+  background-color: #1e1e1e; 
+  border: #333333 solid 1px;
+}
