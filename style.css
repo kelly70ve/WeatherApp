@@ -8,7 +8,7 @@ body {
 }
 
 main {
-  height: 90vh;
+  height: 100vh;
   border-top: #CFBB6D solid 1px;
 }
 
@@ -35,12 +35,24 @@ main {
   border: #333333 solid 1px;
 }
 
+/* Reports */
 
-/* Weather Column */
+.report {
+  height: 33.3%;
+}
 
 /* Todays Weather */
 
 .card {
   background-color: #1e1e1e; 
   border: #333333 solid 1px;
+  width: 100%;
+}
+
+
+/* Five Day */
+
+.card-img {
+  height: 100px;
+  width: auto;
 }

@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <!-- CSS -->
   <link rel="stylesheet" href="style.css">
   <title>Document</title>
@@ -13,7 +18,7 @@
   <header>
     <ul class="nav justify-content-center p-2">
       <h1 class="nav-item">
-        Weather App
+        Weather Dashboard
       </h1>
     </ul>
   </header>
@@ -21,10 +26,10 @@
   <main class="container-fluid">
     <div class="main-row row">
       <!-- Search Container -->
-      <div class="search-column p-2">
-        <form class="form-inline my-2 my-lg-0 p-2">
-          <input id="search" class="form-control col-md-auto" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">S</button>
+      <div class="search-column col-md-2 p-2">
+        <form class="form-inline my-2 my-lg-0 m-2 row">
+          <input id="search" class="form-control col-9" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-warning col my-2 my-sm-0" type="submit"><i class="far fa-eye"></i></button>
         </form>
         <!-- Past Searches -->
         <ul class="list-group p-2">
@@ -37,46 +42,77 @@
       <div class="main-weather p-2 col">
         <div class="container-fluid">
           <!-- Today Report-->
-          <h3>Today: </h3>
-          <div class="card row m-2">
-            <div class="card-body container">
-              <div class="col-3">
-                <img src="" alt="">
+          <div class="report">
+            <h3>Today: </h3>
+            <div class="card m-2">
+              <div class="card-body row">
+                <div class="col-2 text-center">
+                  <img class="img-fluid" src="./Assets/sunny.png" alt="sun">
+                </div>
+                <div class="col d-flex flex-column justify-content-around">
+                  <h3>San Diego</h3>
+                  <div>Temperature:</div>
+                  <div>Humidity:</div>
+                  <div>Wind Speed:</div>
+                  <div>UV Index:</div>
+                </div>
               </div>
-              <div class="col"></div>
             </div>
           </div>
           <!-- Five Day  -->
-          <h3>Five Day Forcast:</h3>
-          <div class="card-deck row p-1 text-center">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <div class="report">
+            <h3>Five Day Forcast:</h3>
+            <div class="card-deck row m-2">
+              <div class="card">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Date</h5>
+                  <img class="card-img img-fluid" src="./Assets/windy.png" alt="wind">
+                  <div class="row">
+                    <div class="col">Temperature:</div>
+                    <div class="col">Humidity:</div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+              <div class="card">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Date</h5>
+                  <img class="card-img img-fluid" src="./Assets/windy.png" alt="wind">
+                  <div class="row">
+                    <div class="col">Temperature:</div>
+                    <div class="col">Humidity:</div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+              <div class="card">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Date</h5>
+                  <img class="card-img img-fluid" src="./Assets/windy.png" alt="wind">
+                  <div class="row">
+                    <div class="col">Temperature:</div>
+                    <div class="col">Humidity:</div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+              <div class="card">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Date</h5>
+                  <img class="card-img img-fluid" src="./Assets/windy.png" alt="wind">
+                  <div class="row">
+                    <div class="col">Temperature:</div>
+                    <div class="col">Humidity:</div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+              <div class="card">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Date</h5>
+                  <img class="card-img img-fluid" src="./Assets/windy.png" alt="wind">
+                  <div class="row">
+                    <div class="col">Temperature:</div>
+                    <div class="col">Humidity:</div>
+                  </div>
+                </div>
+              </div>
               </div>
             </div>
           </div>
