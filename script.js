@@ -31,6 +31,7 @@ $(document).ready(function () {
   function getWeather() {
     var apiCurrent = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
 
+    // Get today's weather 
     $.ajax({
       url: apiCurrent,
       method: "GET"
@@ -42,7 +43,7 @@ $(document).ready(function () {
       $("#temp").text(`${response.main.temp} °F`);
       $("#hum").text(`${response.main.humidity} %`);
       $("#wind").text(`${response.wind.speed} MPH`);
-      $("#today-img").attr("src", `./Assets/${weather}.png`)
+      $("#today-img").attr("src", `./Assets/${weather}.png`).attr("alt", weather)
 
       // Get UV
       $.ajax({
@@ -52,6 +53,10 @@ $(document).ready(function () {
 
         $("#uv").text(response.value);
       })
+
+      // 5 day forcast 
+
+
       
 
     });
@@ -59,7 +64,6 @@ $(document).ready(function () {
 
   // Change img for weahter 
   function decodeWeatherId() {
-
     switch(true) {
       case (weatherId > 199 && weatherId < 299):
         weather = "Thunderstorm";
@@ -100,24 +104,6 @@ $(document).ready(function () {
 
 });
 
-// Pull the weather conditions for today
 // Pull weather conditions for 5 days 
 // Pull dates for next 5 days
 // On click search for past searches btns
-
-
-// Weather IDs
-
-// 200-232 = Thunderstorm 
-
-// 300-321 = Drizzle
-
-// 500-531 = Rain
-
-// 600-622 = Snow
-
-// 701-781 = Atmosphere
-
-// 800 = Clear
-
-// 801-804 = Clouds 
