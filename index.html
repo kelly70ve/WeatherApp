@@ -31,7 +31,7 @@
       <!-- Search Container -->
       <div class="search-column col-md-2 p-2">
         <form class="form-inline my-2 my-lg-0 m-2 row">
-          <input id="search" class="form-control col-9" type="search" placeholder="Search" aria-label="Search">
+          <input id="search" class="form-control col-9" type="search" placeholder="Search by City" aria-label="Search">
           <button id="search-btn" class="btn btn-outline-warning col my-2 my-sm-0" type="submit"><i class="far fa-eye"></i></button>
         </form>
         <!-- Past Searches -->
@@ -51,11 +51,11 @@
                   <img class="img-fluid" src="./Assets/sunny.png" alt="sun">
                 </div>
                 <div class="col d-flex flex-column justify-content-around">
-                  <h3>San Diego</h3>
-                  <div>Temperature:</div>
-                  <div>Humidity:</div>
-                  <div>Wind Speed:</div>
-                  <div>UV Index:</div>
+                  <h3 id="city"></h3>
+                  <div>Temperature: <span id="temp"></span></div>
+                  <div>Humidity: <span id="hum"></span></div>
+                  <div>Wind Speed: <span id="wind"></span></div>
+                  <div>UV Index: <span id="uv"></span></div>
                 </div>
               </div>
             </div>
