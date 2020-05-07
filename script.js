@@ -27,18 +27,26 @@ $(document).ready(function () {
 
   // Update weather tables
   function getWeather() {
-    var apiCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
+    var apiCurrent = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
 
     $.ajax({
       url: apiCurrent,
       method: "GET"
     }).then(function(response) {
-      console.log(response)
       $("#city").text(response.name);
       $("#temp").text(`${response.main.temp} °F`);
       $("#hum").text(`${response.main.humidity} %`);
       $("#wind").text(`${response.wind.speed} MPH`);
-      $("#uv").text(``);
+
+      // Get UV
+      $.ajax({
+        url: `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${response.coord.lat}&lon=${response.coord.lon}`,
+        method: "GET"
+      }).then(function(response){
+        console.log(response)
+        $("#uv").text(response.value);
+      })
+      
 
     });
   }
