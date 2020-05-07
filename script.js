@@ -8,34 +8,29 @@
 
 
 $(document).ready(function () {
-
-  
   var apiKey = "b0d36754b058f6a0166bf74f6a5ebe40";
   var city;
 
+  init();
+
+  // Listen for search btn click
+
   $("#search-btn").on("click", function() {
     event.preventDefault();
-    // Search for a city on click
-    city = $("#search").val().trim()
-    
-    getWeather();
-
-    // Add city to list (if city != null) ***
-    addCity();
-
-    function addCity () {
-      $("#past-searches").prepend($("<button>").attr("type", "button").addClass("past text-muted list-group-item list-group-item-action").text(city))
-      $("#search").val("")
+    // Search for a city on click 
+    if ($("#search").val() !== "") {
+      city = $("#search").val().trim()
+      addCity();
     }
-
+    getWeather();
   });
 
+  // Update weather tables
   function getWeather() {
-
-    var api = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
+    var apiCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
 
     $.ajax({
-      url: api,
+      url: apiCurrent,
       method: "GET"
     }).then(function(response) {
       console.log(response)
@@ -48,9 +43,20 @@ $(document).ready(function () {
     });
   }
 
+  // Initialize with SD
+  function init() {
+    city = "San Diego"
+    getWeather();
+  }
+
+  // Add city buttons
+  function addCity () {
+    $("#past-searches").prepend($("<button>").attr("type", "button").addClass("past text-muted list-group-item list-group-item-action").text(city))
+    $("#search").val("")
+  }
 
 });
-// Add it to the list of cities
+
 // Pull the weather conditions for today
 // Pull weather conditions for 5 days 
 // Pull dates for next 5 days
