@@ -12,6 +12,8 @@ $(document).ready(function () {
   var weather;
   var noon = [2, 10, 18, 26, 34];
   var days;
+  var uvIndex = "";
+  var uv;
 
   init();
 
@@ -81,8 +83,10 @@ $(document).ready(function () {
         url: `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${response.coord.lat}&lon=${response.coord.lon}`,
         method: "GET"
       }).then(function (response) {
-
-        $("#uv").text(response.value);
+        uvIndex = response.value;
+        decodeUV();
+        console.log(uv)
+        $("#uv").text(uvIndex).css("background-color", uv);
       })
 
     });
@@ -124,7 +128,7 @@ $(document).ready(function () {
     }
   }
 
-  // WEATHER DECODER -----------------------------------------------------------------------
+  // WEATHER DECODERS -----------------------------------------------------------------------
 
   // Change img for weather 
   function decodeWeatherId() {
@@ -148,6 +152,27 @@ $(document).ready(function () {
         weather = "Clouds"
     }
   }
+
+  function decodeUV() {
+    uv = "";
+    switch (true) {
+      case (uvIndex >= 0 && uvIndex < 3):
+        uv = "green";
+        break;
+      case (uvIndex >= 3 && uvIndex < 6):
+        uv = "darkkhaki";
+        break;
+      case (uvIndex >= 6 && uvIndex < 8):
+        uv = "orange";
+        break;
+      case (uvIndex >= 8 && uvIndex < 11):
+        uv = "red";
+        break;
+      case (uvIndex >= 11):
+        uv = "violet"
+    }
+  }
+
 
   // INIT -----------------------------------------------------------------------
 
