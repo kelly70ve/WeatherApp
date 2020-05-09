@@ -14,10 +14,13 @@ $(document).ready(function () {
   var days;
   var uvIndex = "";
   var uv;
+  var savedCities= [];
+
+  loadCities();
 
   init();
 
-
+  
   // SEARCH -----------------------------------------------------------------------
 
   // Listen for search btn click
@@ -54,6 +57,8 @@ $(document).ready(function () {
       $("#search").val("");
     } else {
       addCity();
+      savedCities.push(city);
+      localStorage.setItem("cities", JSON.stringify(savedCities))
     }
   }
   
@@ -85,7 +90,6 @@ $(document).ready(function () {
       }).then(function (response) {
         uvIndex = response.value;
         decodeUV();
-        console.log(uv)
         $("#uv").text(uvIndex).css("background-color", uv);
       })
 
@@ -174,12 +178,32 @@ $(document).ready(function () {
   }
 
 
+  // LOCAL STORAGE -----------------------------------------------------------------------
+
+  // Load Cities
+  function loadCities() {
+    var storedCities = JSON.parse(localStorage.getItem("cities"));
+    if (storedCities !== null) {
+      savedCities = storedCities;
+      renderCities();
+    } else {
+      city = "San Diego"
+      checkPast();
+    }
+  }
+
+  function renderCities() {
+    for (var i = 0; i < savedCities.length; i++) {
+      city = savedCities[i];
+      console.log (city)
+      addCity();
+    }
+  }
+
   // INIT -----------------------------------------------------------------------
 
   // Initialize with SD
   function init() {
-    city = "San Diego"
-    addCity();
     getToday();
     getFiveDay();
   }
