@@ -5,37 +5,51 @@
 
 // Open with San Diego weather
 
-
-
 $(document).ready(function () {
   var apiKey = "b0d36754b058f6a0166bf74f6a5ebe40";
   var city;
   var weatherId;
   var weather;
+  var noon = [2, 10, 18, 26, 34];
+  var days = [];
 
   init();
 
+
+  // SEARCH -----------------------------------------------------------------------
+
   // Listen for search btn click
 
-  $("#search-btn").on("click", function() {
+  $("#search-btn").on("click", function () {
     event.preventDefault();
     // Search for a city on click 
     if ($("#search").val() !== "") {
       city = $("#search").val().trim()
       addCity();
     }
-    getWeather();
+    getToday();
+    getFiveDay();
   });
 
-  // Update weather tables
-  function getWeather() {
+  // Add city buttons
+  function addCity() {
+    $("#past-searches").prepend($("<button>").attr("type", "button").addClass("past text-muted list-group-item list-group-item-action").text(city))
+    $("#search").val("")
+  }
+
+
+
+  // TODAY -----------------------------------------------------------------------
+
+
+  // Get today's weather 
+  function getToday() {
     var apiCurrent = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
 
-    // Get today's weather 
     $.ajax({
       url: apiCurrent,
       method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
       weatherId = response.weather[0].id;
       decodeWeatherId();
 
@@ -49,57 +63,71 @@ $(document).ready(function () {
       $.ajax({
         url: `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${response.coord.lat}&lon=${response.coord.lon}`,
         method: "GET"
-      }).then(function(response){
+      }).then(function (response) {
 
         $("#uv").text(response.value);
       })
 
-      // 5 day forcast 
-
-
-      
-
     });
   }
 
-  // Change img for weahter 
+
+  // FIVE DAY -----------------------------------------------------------------------
+
+
+  function getFiveDay() {
+    var apiFive = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`
+    $.ajax({
+      url: apiFive,
+      method: "GET"
+    }).then(function (response) {
+
+      for (var i = 0; i < noon.length; i++) {
+        weatherId = response.list[noon[i]].weather[0].id
+        decodeWeatherId();
+
+        var day = {
+          temp: response.list[noon[i]].main.temp,
+          hum: response.list[noon[i]].main.humidity,
+          weather: weather
+        }
+        days.push(day);
+      }
+    })
+  }
+
+  // WEATHER DECODER -----------------------------------------------------------------------
+
+  // Change img for weather 
   function decodeWeatherId() {
-    switch(true) {
+    switch (true) {
       case (weatherId > 199 && weatherId < 299):
         weather = "Thunderstorm";
-          break;
+        break;
       case (weatherId > 299 && weatherId < 599):
         weather = "Rain";
-          break;
+        break;
       case (weatherId > 599 && weatherId < 699):
         weather = "Snow";
-          break;
+        break;
       case (weatherId > 699 && weatherId < 799):
         weather = "Atmostphere";
-          break;
+        break;
       case weatherId === 800:
         weather = "Clear";
-          break;
+        break;
       case weatherId > 800:
         weather = "Clouds"
     }
   }
 
-  // function displayWeather() {
-  //   if (weather === )
-  // }
-
+  // INIT -----------------------------------------------------------------------
 
   // Initialize with SD
   function init() {
     city = "San Diego"
-    getWeather();
-  }
-
-  // Add city buttons
-  function addCity () {
-    $("#past-searches").prepend($("<button>").attr("type", "button").addClass("past text-muted list-group-item list-group-item-action").text(city))
-    $("#search").val("")
+    getToday();
+    getFiveDay();
   }
 
 });
