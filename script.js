@@ -1,10 +1,3 @@
-// Weather conditions https://openweathermap.org/weather-conditions
-// Api Documentation
-// Current https://openweathermap.org/current 
-// UV https://openweathermap.org/api/uvi 
-
-// Open with San Diego weather
-
 $(document).ready(function () {
   var apiKey = "b0d36754b058f6a0166bf74f6a5ebe40";
   var city;
@@ -30,7 +23,6 @@ $(document).ready(function () {
     // Search for a city on click 
     if ($("#search").val() !== "") {
       city = $("#search").val().trim();
-      checkPast()
     }
     getToday();
     getFiveDay();
@@ -72,8 +64,13 @@ $(document).ready(function () {
 
     $.ajax({
       url: apiCurrent,
-      method: "GET"
+      method: "GET",
+      error: function () {
+        alert("City not found. Please check spelling and search again.");
+        $("#search").val("");
+      }
     }).then(function (response) {
+      checkPast();
       weatherId = response.weather[0].id;
       decodeWeatherId();
 
@@ -195,7 +192,6 @@ $(document).ready(function () {
   function renderCities() {
     for (var i = 0; i < savedCities.length; i++) {
       city = savedCities[i];
-      console.log (city)
       addCity();
     }
   }
@@ -209,7 +205,3 @@ $(document).ready(function () {
   }
 
 });
-
-// Pull weather conditions for 5 days 
-// Pull dates for next 5 days
-// On click search for past searches btns
