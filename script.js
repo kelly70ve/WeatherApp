@@ -57,7 +57,7 @@ $(document).ready(function () {
       $("#temp").text(`${response.main.temp} °F`);
       $("#hum").text(`${response.main.humidity} %`);
       $("#wind").text(`${response.wind.speed} MPH`);
-      $("#today-img").attr("src", `./Assets/${weather}.png`).attr("alt", weather)
+      $("#today-img").attr("src", `./Assets/${weather}.png`).attr("alt", weather);
 
       // Get UV
       $.ajax({
@@ -81,6 +81,7 @@ $(document).ready(function () {
       url: apiFive,
       method: "GET"
     }).then(function (response) {
+      days = [];
 
       for (var i = 0; i < noon.length; i++) {
         weatherId = response.list[noon[i]].weather[0].id
@@ -93,7 +94,17 @@ $(document).ready(function () {
         }
         days.push(day);
       }
+      displayFiveDay();
     })
+  }
+  console.log (days)
+  function displayFiveDay() {
+    for (var i = 0; i < days.length; i++) {
+      $(`#day${i}`).text(moment().add(i + 1, 'day').format('l'))
+      $(`#temp${i}`).text(`${days[i].temp} °F`);
+      $(`#hum${i}`).text(`${days[i].hum} %`);
+      $(`#img${i}`).attr("src", `./Assets/${days[i].weather}.png`).attr("alt", weather)
+    }
   }
 
   // WEATHER DECODER -----------------------------------------------------------------------
