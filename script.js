@@ -39,10 +39,9 @@ $(document).ready(function () {
 
   // Past search button listen 
 
-  $(".past").on("click", function () {
+  $("#past-searches").on("click",".past",function () {
     event.preventDefault();
     city = $(this).attr("data-city");
-    console.log(city);
     getToday();
     getFiveDay();
   });
