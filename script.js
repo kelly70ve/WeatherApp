@@ -25,7 +25,7 @@ $(document).ready(function () {
     // Search for a city on click 
     if ($("#search").val() !== "") {
       city = $("#search").val().trim();
-      addCity();
+      checkPast()
     }
     getToday();
     getFiveDay();
@@ -33,8 +33,8 @@ $(document).ready(function () {
 
   // Add city buttons
   function addCity() {
-    $("#past-searches").prepend($("<button>").attr("type", "button").attr("data-city", city).addClass("past text-muted list-group-item list-group-item-action").text(city))
-    $("#search").val("")
+    $("#past-searches").prepend($("<button>").attr("type", "button").attr("data-city", city).addClass("past text-muted list-group-item list-group-item-action").text(city));
+    $("#search").val("");
   }
 
   // Past search button listen 
@@ -46,7 +46,15 @@ $(document).ready(function () {
     getFiveDay();
   });
 
-
+  // Check if city has been searched for before
+  function checkPast () {
+    if ( $(`#past-searches button[data-city="${city}"]`).length ) { 
+      $("#search").val("");
+    } else {
+      addCity();
+    }
+  }
+  
 
   // TODAY -----------------------------------------------------------------------
 
