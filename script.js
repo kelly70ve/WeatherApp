@@ -11,7 +11,7 @@ $(document).ready(function () {
   var weatherId;
   var weather;
   var noon = [2, 10, 18, 26, 34];
-  var days = [];
+  var days;
 
   init();
 
@@ -24,7 +24,7 @@ $(document).ready(function () {
     event.preventDefault();
     // Search for a city on click 
     if ($("#search").val() !== "") {
-      city = $("#search").val().trim()
+      city = $("#search").val().trim();
       addCity();
     }
     getToday();
@@ -33,9 +33,19 @@ $(document).ready(function () {
 
   // Add city buttons
   function addCity() {
-    $("#past-searches").prepend($("<button>").attr("type", "button").addClass("past text-muted list-group-item list-group-item-action").text(city))
+    $("#past-searches").prepend($("<button>").attr("type", "button").attr("data-city", city).addClass("past text-muted list-group-item list-group-item-action").text(city))
     $("#search").val("")
   }
+
+  // Past search button listen 
+
+  $(".past").on("click", function () {
+    event.preventDefault();
+    city = $(this).attr("data-city");
+    console.log(city);
+    getToday();
+    getFiveDay();
+  });
 
 
 
@@ -97,7 +107,7 @@ $(document).ready(function () {
       displayFiveDay();
     })
   }
-  console.log (days)
+
   function displayFiveDay() {
     for (var i = 0; i < days.length; i++) {
       $(`#day${i}`).text(moment().add(i + 1, 'day').format('l'))
@@ -137,6 +147,7 @@ $(document).ready(function () {
   // Initialize with SD
   function init() {
     city = "San Diego"
+    addCity();
     getToday();
     getFiveDay();
   }
