@@ -2,6 +2,10 @@
 
 This application is a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS using the [OpenWeather API](https://openweathermap.org/api) to retrieve weather data for cities. 
 
+This project has been completed with no known bugs and can be viewed [here](https://kelly70ve.github.io/WeatherApp/). The project is responsive and can be viewed on mobile, tablet or desktop.
+
+** This is my first attempt at a dark themed app!
+
 --- 
 
 ## Project Goals
@@ -18,7 +22,7 @@ This application is a weather dashboard that will run in the browser and feature
 
 ## Project Preview
 
-![weather dashboard demo](./Assets/06-server-side-apis-homework-demo.png)
+![weather dashboard demo](./Assets/demo.gif)
 
 
 - - -
