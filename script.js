@@ -3,8 +3,8 @@ $(document).ready(function () {
   var city;
   var weatherId;
   var weather;
-  var noon = [2, 10, 18, 26, 34];
-  var days;
+  var lat;
+  var lon;
   var uvIndex = "";
   var uv;
   var savedCities= [];
@@ -25,7 +25,6 @@ $(document).ready(function () {
       city = $("#search").val().trim();
     }
     getToday();
-    getFiveDay();
   });
 
   // Add city buttons
@@ -40,7 +39,6 @@ $(document).ready(function () {
     event.preventDefault();
     city = $(this).attr("data-city");
     getToday();
-    getFiveDay();
   });
 
   // Check if city has been searched for before
@@ -80,54 +78,47 @@ $(document).ready(function () {
       $("#wind").text(`${response.wind.speed} MPH`);
       $("#today-img").attr("src", `./Assets/${weather}.png`).attr("alt", weather);
 
-      // Get UV
-      $.ajax({
-        url: `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${response.coord.lat}&lon=${response.coord.lon}`,
-        method: "GET"
-      }).then(function (response) {
-        uvIndex = response.value;
-        decodeUV();
-        $("#uv").text(uvIndex).css("background-color", uv);
-      })
+      lat = response.coord.lat;
+      lon = response.coord.lon;
 
+      getUV();
+      getFiveDay();
     });
   }
 
+  // Get UV
+  function getUV() {
+    $.ajax({
+      url: `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`,
+      method: "GET"
+    }).then(function (response) {
+      uvIndex = response.value;
+      decodeUV();
+      $("#uv").text(uvIndex).css("background-color", uv);
+    })
+  }
 
   // FIVE DAY -----------------------------------------------------------------------
 
-
+  
   function getFiveDay() {
-    var apiFive = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`
+    var apiFive = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,current&appid=${apiKey}&units=imperial`
     $.ajax({
       url: apiFive,
       method: "GET"
     }).then(function (response) {
-      days = [];
-
-      for (var i = 0; i < noon.length; i++) {
-        weatherId = response.list[noon[i]].weather[0].id
+      for (var i = 0; i < 5; i++) {
+        var unixTime = response.daily[i].dt
+        $(`#day${i}`).text(moment.unix(unixTime).format('l'))
+        $(`#temp${i}`).text(`${response.daily[i].temp.day} °F`);
+        $(`#hum${i}`).text(`${response.daily[i].humidity} %`);
+        weatherId = response.daily[i].weather[0].id
         decodeWeatherId();
-
-        var day = {
-          temp: response.list[noon[i]].main.temp,
-          hum: response.list[noon[i]].main.humidity,
-          weather: weather
-        }
-        days.push(day);
+        $(`#img${i}`).attr("src", `./Assets/${weather}.png`).attr("alt", weather)
       }
-      displayFiveDay();
     })
   }
 
-  function displayFiveDay() {
-    for (var i = 0; i < days.length; i++) {
-      $(`#day${i}`).text(moment().add(i + 1, 'day').format('l'))
-      $(`#temp${i}`).text(`${days[i].temp} °F`);
-      $(`#hum${i}`).text(`${days[i].hum} %`);
-      $(`#img${i}`).attr("src", `./Assets/${days[i].weather}.png`).attr("alt", weather)
-    }
-  }
 
   // WEATHER DECODERS -----------------------------------------------------------------------
 
@@ -211,7 +202,6 @@ $(document).ready(function () {
   // Initialize with SD
   function init() {
     getToday();
-    getFiveDay();
   }
 
 });
