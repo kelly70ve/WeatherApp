@@ -31,14 +31,16 @@
   <main class="container-fluid">
     <div class="main-row row">
       <!-- Search Container -->
-      <div class="search-column col-md-2 p-2">
+      <div class="search-column col-md-2 p-2 d-flex flex-column justify-content-start">
         <form class="form-inline my-2 my-lg-0 m-2 row">
           <input id="search" class="form-control col-9" type="search" placeholder="Search by City" aria-label="Search">
           <button id="search-btn" class="btn btn-outline-warning col-3 my-2 my-sm-0" type="submit"><i class="far fa-eye"></i></button>
         </form>
         <!-- Past Searches -->
         <ul id="past-searches" class="list-group p-2">
+          
         </ul>
+        <button type="button" id="clear" class="btn btn-outline-warning m-2">Clear Past Searches</button>
       </div>
 
       <div class="main-weather p-2 col">

@@ -196,6 +196,16 @@ $(document).ready(function () {
     }
   }
 
+  // Clear Storage 
+
+  $("#clear").on("click", function () {
+    localStorage.clear();
+    savedCities = [];
+    $("#past-searches").empty();
+    city = "San Diego";
+    init();
+  })
+
   // INIT -----------------------------------------------------------------------
 
   // Initialize with SD
